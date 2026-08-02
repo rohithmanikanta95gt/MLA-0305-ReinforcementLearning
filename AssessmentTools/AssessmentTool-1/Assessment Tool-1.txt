@@ -1,0 +1,272 @@
+Assessment Tool-1
+
+
+```r
+#-------------------------------
+# Simple Markov Decision Process
+#-------------------------------
+
+size <- 4
+
+start_state <- c(1, 1)
+goal_state  <- c(4, 4)
+
+current <- start_state
+
+grid <- matrix("", size, size)
+grid[start_state[1], start_state[2]] <- "S"
+grid[goal_state[1], goal_state[2]] <- "G"
+
+cat("Grid Layout\n")
+print(grid)
+
+count <- 1
+
+cat("\nSimulation Begins\n\n")
+
+while (!all(current == goal_state)) {
+
+  r <- current[1]
+  c <- current[2]
+
+  moves <- list()
+
+  if (r > 1) moves[["Up"]] <- c(r - 1, c)
+  if (r < size) moves[["Down"]] <- c(r + 1, c)
+  if (c > 1) moves[["Left"]] <- c(r, c - 1)
+  if (c < size) moves[["Right"]] <- c(r, c + 1)
+
+  chosen_move <- ""
+  shortest <- Inf
+
+  for (direction in names(moves)) {
+
+    temp <- moves[[direction]]
+
+    dist <- abs(goal_state[1] - temp[1]) +
+            abs(goal_state[2] - temp[2])
+
+    if (dist < shortest) {
+      shortest <- dist
+      chosen_move <- direction
+      next_pos <- temp
+    }
+  }
+
+  points <- if (all(next_pos == goal_state)) 100 else -1
+
+  cat("Move :", count, "\n")
+  cat("Current :", current, "\n")
+  cat("Selected :", chosen_move, "\n")
+  cat("Next :", next_pos, "\n")
+  cat("Reward :", points, "\n\n")
+
+  current <- next_pos
+  count <- count + 1
+}
+```
+
+### Simple Procedure
+
+1. Create a 4×4 grid with Start (S) and Goal (G).
+2. Begin from the start position.
+3. Find all valid moves (Up, Down, Left, Right).
+4. Choose the move with the shortest distance to the goal.
+5. Give **-1** reward for normal moves and **100** when the goal is reached.
+6. Repeat until the goal state is reached.
+
+
+
+
+
+
+```r
+#--------------------------
+# Grid World Path Plot
+#--------------------------
+
+n <- 4
+
+row_pos <- c(1, 1, 2, 3, 4, 4, 4)
+col_pos <- c(1, 2, 2, 2, 2, 3, 4)
+
+plot(1:n,
+     1:n,
+     type = "n",
+     xlim = c(1, n),
+     ylim = c(n, 1),
+     xlab = "Grid Column",
+     ylab = "Grid Row",
+     main = "Path Followed by Agent")
+
+grid(nx = n - 1, ny = n - 1, col = "gray")
+
+text(1, 1, labels = "S", col = "blue", cex = 1.8)
+text(4, 4, labels = "G", col = "red", cex = 1.8)
+
+lines(col_pos, row_pos, lwd = 2.5)
+points(col_pos, row_pos, pch = 16, cex = 1.4)
+```
+
+### Simple Procedure
+
+1. Define the grid size and the agent's path coordinates.
+2. Create an empty grid plot.
+3. Draw the grid lines.
+4. Mark the Start (S) and Goal (G).
+5. Connect the path using lines and highlight each position with points.
+
+```r id="rw5841"
+# Install package (only once)
+install.packages("DiagrammeR")
+
+# Load library
+library(DiagrammeR)
+
+grViz("
+
+digraph MDP_Process {
+
+graph[
+layout = dot,
+rankdir = TB,
+bgcolor = white,
+labelloc = t,
+fontsize = 24,
+fontname = Arial,
+label = 'MARKOV DECISION PROCESS WORKFLOW'
+]
+
+node[
+shape = rectangle,
+style = 'rounded,filled',
+fontname = Arial,
+fontsize = 14,
+width = 4.5,
+height = 0.9,
+color = '#2E4053',
+penwidth = 2
+]
+
+edge[
+color = '#566573',
+penwidth = 2,
+arrowsize = 0.8
+]
+
+N1[
+label='Input Data
+
+• Patient records
+• Symptoms
+• Medical history
+• Test reports',
+fillcolor='#D6EAF8'
+]
+
+N2[
+label='State Definition
+
+• Identify health states
+• Encode features
+• Build state space
+• Normalize data',
+fillcolor='#D5F5E3'
+]
+
+N3[
+label='Action Choice
+
+• Select treatment
+• Recommend medication
+• Diagnosis
+• Explore policy',
+fillcolor='#FCF3CF'
+]
+
+N4[
+label='State Update
+
+• Predict next state
+• Transition model
+• Update condition
+• Estimate dynamics',
+fillcolor='#FADBD8'
+]
+
+N5[
+label='Reward Calculation
+
+• Recovery reward
+• Risk penalty
+• Reduce cost
+• Improve outcome',
+fillcolor='#F9E79F'
+]
+
+N6[
+label='Policy Analysis
+
+• Evaluate policy
+• Compare actions
+• Estimate value
+• Improve decisions',
+fillcolor='#E8DAEF'
+]
+
+N7[
+label='Optimal Policy
+
+• Best action
+• Maximum reward
+• Treatment strategy
+• Final policy',
+fillcolor='#F8C471'
+]
+
+N8[
+label='Performance Check
+
+• Accuracy
+• Precision
+• Recall
+• F1-Score',
+fillcolor='#ABEBC6'
+]
+
+N1 -> N2
+N2 -> N3
+N3 -> N4
+N4 -> N5
+N5 -> N6
+N6 -> N7
+N7 -> N8
+
+subgraph cluster_mdp{
+
+label='MDP Workflow'
+
+fontsize=18
+fontcolor=white
+color='#1B4F72'
+fillcolor='#F4F6F7'
+style='rounded,filled'
+penwidth=3
+
+N1;N2;N3;N4;N5;N6;N7;N8;
+
+}
+
+}
+
+")
+```
+
+### Simple Procedure
+
+1. Install and load the **DiagrammeR** package.
+2. Create nodes representing each stage of the MDP workflow.
+3. Connect the stages using directed arrows.
+4. Group all stages into one workflow diagram.
+5. Display the complete MDP methodology flowchart.
+
