@@ -1,0 +1,3 @@
+EXPERIMENT 19: POMDP BELIEF UPDATE (BAYES)
+
+The implementation of a Partially Observable Markov Decision Process belief state update using Bayes' rule demonstrates how an intelligent agent effectively tracks hidden states under severe environmental uncertainty. Beginning with a uniform prior distribution, the belief state dynamically updates through predictive transitions and incoming noisy sensor observations. As empirical results illustrate, consistent sensor feedback successfully concentrates probability mass onto the true underlying state while minimizing Shannon entropy, confirming the robustness and theoretical precision of Bayesian filtering in partially observable domains.
