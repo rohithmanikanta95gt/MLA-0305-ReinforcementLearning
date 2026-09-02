@@ -1,0 +1,3 @@
+EXPERIMENT 20: Q-LEARNING FOR TRAFFIC SIGNAL CONTROL
+
+The implementation of a Q-learning agent for traffic signal control demonstrates how reinforcement learning can dynamically optimize intersection throughput and minimize vehicle waiting times under fluctuating traffic densities. By modeling vehicle queue lengths across incoming lanes as environmental states and adjusting signal phases as actions, the agent learns an optimal policy that successfully reduces congestion penalties over time. Empirical results highlight stable policy convergence, showcasing the effectiveness of temporal-difference learning in managing real-world sequential decision-making control tasks.

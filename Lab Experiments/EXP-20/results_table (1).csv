@@ -1,0 +1,6 @@
+Metric,Value
+Total Episodes,300.0
+Number of States,9.0
+Learning Rate (α),0.1
+Discount Factor (γ),0.9
+Max Episode Reward,-20.0
